@@ -36,7 +36,7 @@ function ControladorPeliculas() {
             var genero = $(".genero-select option:selected").attr("value");
             var orden = $(".orden-select option:selected").attr("value");
             var anio = $(".anio-busqueda").val();
-            
+
             //si se recibio como parametro el numero de pagina se envia ese valor, sino, se pide la pagina 1
             var pagina_solicitada = (pagina) ? pagina : 1;
 
@@ -100,7 +100,7 @@ function ControladorPeliculas() {
                     pelicula.find(".trama").html(peliculas[i].trama);
                     pelicula.find(".titulo").html(peliculas[i].titulo);
                     pelicula.attr("id", peliculas[i].id);
-                    //cuando se haga click en una película, se va a redirigir la aplicación a la página info.html  
+                    //cuando se haga click en una película, se va a redirigir la aplicación a la página info.html
                     pelicula.click(function() {
                         window.location.href = "info.html?id=" + this.id;
                     });
@@ -115,7 +115,7 @@ function ControladorPeliculas() {
             }
         },
 
-        //esta función recibe como parámetro el total de películas que se obtienen como resultado. Según esa cantidad 
+        //esta función recibe como parámetro el total de películas que se obtienen como resultado. Según esa cantidad
         //crea los botones de la paginación y les da la funcionalidad correspondiente
         this.cargarBotones = function(total) {
             //se establece que se van a mostrar 52 resultados por pagina
