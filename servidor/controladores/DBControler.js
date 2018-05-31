@@ -5,13 +5,14 @@ function mostrarTodasLasPeliculas(req,res){
   var qy = function(req){
     /*filtro es igual los parametros pasados por query(si es que fueron pasados,concatenando su tabla correspondiente
     y concatenando un and a cada parametro que no sea el primer elemento) joinear eso con un separador de un espacio (' ')*/
-    var filtro = [!!req.query.anio? 'anio=' + req.query.anio : null,!!req.query.titulo? 'titulo="' + req.query.titulo+'"' : null,!!req.query.genero? 'genero=' + req.query.genero : null].filter(x=> x!=null).map((x,i,filtro)=> i > 0 ? 'and ' + x : x).join(' ');
-    //console.log('BIT CONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEECT',filtro);
-    return 'select * from pelicula '+(filtro? 'where '+filtro : filtro);
+    var filtro = [!!req.query.anio? 'anio=' + req.query.anio : null,
+    !!req.query.titulo? 'titulo like"%' + req.query.titulo+'%"' : null,
+    !!req.query.genero? 'genero=' + req.query.genero : null].filter(x=> x!=null).map((x,i,filtro)=> i > 0 ? 'and ' + x : x).join(' ');
+    return 'select SQL_CALC_FOUND_ROWS * from pelicula '+(filtro? 'where '+filtro : filtro);
   }
 
   //mandar la consnulta a la base de datos
-  connection.query(qy(req),function(error,result,fields){
+  connection.query(qy(req)+'; SELECT FOUND_ROWS() AS total',function(error,result,fields){
     //si hubo error notificar
     if(error){
       console.log('hubo un error MOSTRAR TODAS LAS PELICULAS',error)
@@ -21,7 +22,8 @@ function mostrarTodasLasPeliculas(req,res){
       console.log('REQUEST: ',req)
       //crear objeto response con todas las peliculas obtenidas en la consulta sql
       var response={
-        'peliculas':result
+        'peliculas':result[0],
+        'total':result[1][0].total
       }
       //enviar resultados de la consulta sql
       res.send(JSON.stringify(response));
