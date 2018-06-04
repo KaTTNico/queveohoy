@@ -17,6 +17,9 @@ app.use(bodyParser.json());
 //get peliculas
 app.get('/peliculas',DBControler.mostrarTodasLasPeliculas);
 
+//get pelicula por id
+app.get('/peliculas/:id',DBControler.mostrarPelicula);
+
 //get generos
 app.get('/generos', DBControler.cargarGeneros);
 

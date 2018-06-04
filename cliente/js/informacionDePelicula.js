@@ -11,7 +11,7 @@
     function ControladorInformacionDePelicula() {
         this.cargarDetalle = function(data) {
                 var pelicula, actores;
-                
+
                 pelicula = data.pelicula;
                 actores = data.actores;
                 genero = data.pelicula.nombre;

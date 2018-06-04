@@ -49,3 +49,24 @@ ADD FOREIGN KEY(genero_id) REFERENCES genero(id);
 /*INSERTS DE GENERO*/
 /*pon tu path aqui*/
 \. C:/Users/Nicolas/Documents/ACAMICA/gitRep/queVeoHoy/queveohoyRecursos/scripts/script-paso-2-generos.sql
+
+/*crear tabla actor*/
+CREATE TABLE actor(
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(70),
+  PRIMARY KEY(`id`)
+);
+
+/*crear tabla de referencias actor pelicula*/
+CREATE TABLE actor_pelicula(
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `actor_id` INT,
+  `pelicula_id` INT,
+  FOREIGN KEY(actor_id) REFERENCES actor(id),
+  FOREIGN KEY(pelicula_id) REFERENCES pelicula(id),
+  PRIMARY KEY (`id`)
+);
+
+/*INSERTS DE GENERO*/
+/*pon tu path aqui*/
+\. C:/Users/Nicolas/Documents/ACAMICA/gitRep/queVeoHoy/queveohoyRecursos/scripts/script-paso-3-actores.sql
